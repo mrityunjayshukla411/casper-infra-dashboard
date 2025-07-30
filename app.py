@@ -46,7 +46,7 @@ infrastructure_data = {
                          'Kresit server room (conference room)',
                          'Kresit server room (basement)', 'Kresit server room (3rd floor)',
                          'Kresit server room (basement)'],
-    'Threads': [96, 96, 96, 48, 96, 16, 128, 64, 512],
+    'Threads': [96, 96, 96, 48, 96, 128, 64, 512],
     'Storage(nvme)': ['1T', '1T', '1T', '1T', '1T', '2T', '406G', '1T'],
     'Storage (hard disk)': ['4T', '4T', '2T', '6T', '2T', '10T', '18T', '20T'],
     'RAM': [128, 128, 128, 128, 204, 64, 64, 512],  # in GB
