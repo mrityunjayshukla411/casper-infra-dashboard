@@ -40,18 +40,18 @@ st.title("🖥️ CASPER Infrastructure Resource Distribution")
 
 # Infrastructure data
 infrastructure_data = {
-    'Machine name': ['ISCA', 'MICRO', 'HPCA', 'USEC', 'ASPLOS', 'trustlab', 'usenix', 'sharcserver1', 'dhristi'],
+    'Machine name': ['ISCA', 'MICRO', 'HPCA', 'USEC', 'ASPLOS', 'usenix', 'sharcserver1', 'dhristi'],
     'Physical location': ['Kresit server room (3rd floor)', 'Kresit server room (3rd floor)', 
                          'Kresit server room (basement)', 'Kresit server room (basement)',
-                         'Kresit server room (conference room)', 'Kresit server room (conference room)',
+                         'Kresit server room (conference room)',
                          'Kresit server room (basement)', 'Kresit server room (3rd floor)',
                          'Kresit server room (basement)'],
     'Threads': [96, 96, 96, 48, 96, 16, 128, 64, 512],
-    'Storage(nvme)': ['1T', '1T', '1T', '1T', '1T', 'Isolated machine for testing', '2T', '406G', '1T'],
-    'Storage (hard disk)': ['4T', '4T', '2T', '6T', '2T', '', '10T', '18T', '20T'],
-    'RAM': [128, 128, 128, 128, 204, None, 64, 64, 512],  # in GB
-    'Swap': ['119G', '119G', '230G', '64G', '93G', '', '93G', '64G', '128G'],
-    'GPU': ['', '', '', '', '', '', 'NVIDIA RTX A6000', 'AMD RX7990 XT', '']
+    'Storage(nvme)': ['1T', '1T', '1T', '1T', '1T', '2T', '406G', '1T'],
+    'Storage (hard disk)': ['4T', '4T', '2T', '6T', '2T', '10T', '18T', '20T'],
+    'RAM': [128, 128, 128, 128, 204, 64, 64, 512],  # in GB
+    'Swap': ['119G', '119G', '230G', '64G', '93G', '93G', '64G', '128G'],
+    'GPU': ['', '', '', '', '', 'NVIDIA RTX A6000', 'AMD RX7990 XT', '']
 }
 
 df = pd.DataFrame(infrastructure_data)
@@ -65,28 +65,31 @@ gpu_machines = len([gpu for gpu in df['GPU'] if gpu.strip() != ''])
 # CASPER Infrastructure Summary
 st.header("📊 CASPER Infrastructure Summary")
 
-# Create 4 columns for metrics
-col1, col2, col3, col4 = st.columns(4)
+# First row: Total Threads and Total RAM
+col1, col2 = st.columns(2)
 
 with col1:
-    st.metric(
-        label="Total Machines", 
-        value=total_machines,
-        help="Total number of machines in the infrastructure"
-    )
-
-with col2:
     st.metric(
         label="Total Threads", 
         value=f"{total_threads:,}",
         help="Combined CPU threads across all machines"
     )
 
-with col3:
+with col2:
     st.metric(
         label="Total RAM", 
         value=f"{int(total_ram):,}GB",
         help="Combined RAM across all machines (excluding trustlab)"
+    )
+
+# Second row: Total Machines and GPU Machines
+col3, col4 = st.columns(2)
+
+with col3:
+    st.metric(
+        label="Total Machines", 
+        value=total_machines,
+        help="Total number of machines in the infrastructure"
     )
 
 with col4:
